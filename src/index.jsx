@@ -24,7 +24,8 @@ if (root) {
 }
 
 // needed components :
-// search bar
+// app
+//search bar
 // displayed gif = result
 // list of gifs
 //
