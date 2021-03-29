@@ -1,26 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// todo
-// When a user types a query, the list of Gifs should display the 10 first
- // results the giphy-api returns.
-// When a user clicks on a gif from the list, it should appear on the main
-// scene on the left.
-
 import '../assets/stylesheets/application.scss';
+import App from './components/app.jsx';
 
-const Hello = ({ name }) => {
-  return (
-    <div>
-      Hello,
-      {name}
-    </div>
-  );
-};
 
 const root = document.getElementById('root');
 if (root) {
-  ReactDOM.render(<Hello name="World" />, root);
+  ReactDOM.render(<App/>, root);
 }
 
 // needed components :
@@ -29,3 +16,8 @@ if (root) {
 // displayed gif = result
 // list of gifs
 //
+// todo
+// When a user types a query, the list of Gifs should display the 10 first
+ // results the giphy-api returns.
+// When a user clicks on a gif from the list, it should appear on the main
+// scene on the left.
