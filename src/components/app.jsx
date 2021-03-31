@@ -13,7 +13,7 @@ class App extends Component {
 
     this.state = {
       gifs: [],
-      selectedGifId: "6Hhrt25GQrd1YDR1Bw"
+      selectedGifId: null
     }
     this.search("homer");
   }
@@ -24,16 +24,30 @@ class App extends Component {
   //     const gifs = data.data.map(giph => giph.id)
   //     this.setState({
   //       gifs: gifs
-  //     })
-  //   })
+  //     });
+  //   });
   // }
 
+  search = (query) => {
+    giphy('ZPdqW81cOzqfkPUPdFNVkkj2m8TVdmkN').search({
+      q: query,
+      rating: 'g',
+      limit: 10
+    }, (error, result) => {
+      this.setState({
+        gifs: result.data
+      });
+    });
+  }
 
   render() {
-    const gifs = [
-      { id: "6Hhrt25GQrd1YDR1Bw" },
-      { id: "6Hhrt25GQrd1YDR1Bw" },
-    ];
+    // const gifs = [
+    //   { id: "6Hhrt25GQrd1YDR1Bw" },
+    //   { id: "6Hhrt25GQrd1YDR1Bw" },
+    // ];
+
+    // Gif ==> onclick={this.props.handleClick} ==> écrire la function à cet endroit
+    // this.setState({selectedGifId: ...})
     return (
       <div>
         <div className="left-scene">
