@@ -18,16 +18,6 @@ class App extends Component {
     this.search("homer");
   }
 
-  // search(query) {
-  //   const giphEndpoint = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${query}&limit=10`
-  //   fetch(giphEndpoint).then(response => response.json()).then((data) => {
-  //     const gifs = data.data.map(giph => giph.id)
-  //     this.setState({
-  //       gifs: gifs
-  //     });
-  //   });
-  // }
-
   search = (query) => {
     giphy('ZPdqW81cOzqfkPUPdFNVkkj2m8TVdmkN').search({
       q: query,
