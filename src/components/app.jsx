@@ -52,74 +52,83 @@ class App extends React.Component {
 export default App
 
 class Task extends React.Component {
-    render () {
-        return (
-            <div class="new_task">
-                <Checkbox />
-                <div>{this.props.taskName}</div>
-            </div>
-        )
-    }
-}
-
-class NewTask extends React.Component {
-    constructor (props) {
-        super(props)
-        this.state = {
-            newTaskLabel: ''
-        }
-    }
-
-    handleChangeLabel = (e) => {
-        // e.target.value
-        this.setState({
-            newTaskLabel: e.target.value
-        })
-    }
-
-    render () {
-        return (
-            <div>
-                <input type='text' value={this.state.newTaskLabel} onChange={this.handleChangeLabel} />
-                <button
-                    type='button'
-                    // onClick={this.props.onClickSubmit} // par reference
-                    onClick={e => this.props.onClickSubmit(this.state.newTaskLabel)}
-                >
-                    Submit
-                </button>
-            </div>
-        )
-    }
-}
-
-class Checkbox extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      checked: "checked"
+        checked: false
     }
   }
 
-  handleCheck() {
-    this.setState({
-      checked: " "
-    })
-  }
-
-  render() {
+  render () {
     return (
-      <input
-        type='checkbox'
-        checked={this.state.checked}
-        onChange={this.props.handleCheck}
-      />
+      <div class="new_task">
+          <Checkbox checked={this.state.checked} onClick={ () => { this.setState({ checked: !this.state.checked });}} />
+          <div>{this.props.taskName}</div>
+      </div>
     )
   }
 }
 
-const Title = props => {
+class NewTask extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      newTaskLabel: ''
+    }
+  }
+
+  handleChangeLabel = (e) => {
+    // e.target.value
+    this.setState({
+      newTaskLabel: e.target.value
+    })
+  }
+
+  render () {
     return (
-        <div class="title">{props.label}</div>
+      <div>
+        <input type='text' value={this.state.newTaskLabel} onChange={this.handleChangeLabel} />
+        <button
+          type='button'
+          // onClick={this.props.onClickSubmit} // par reference
+          onClick={e => this.props.onClickSubmit(this.state.newTaskLabel)}
+        >
+          Submit
+        </button>
+      </div>
     )
+  }
+}
+
+class Checkbox extends React.Component {
+  // constructor (props) {
+  //   super(props)
+  //   this.state = {
+  //     checked: true
+  //   }
+  // }
+
+  // handleCheck = () => {
+  //   this.setState({
+  //     checked: false
+  //   })
+  // }
+
+  // render() {
+  //   return (
+  //      <input type='checkbox' onChange={this.props.checked} checked={this.state.checked} />
+  //   )
+  // }
+
+  render() {
+    return (
+       <input type='checkbox' />
+    )
+  }
+}
+
+const Title = (props) => {
+  return (
+    <div class="title">{props.label}</div>
+  );
 }
