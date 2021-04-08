@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const defaultTask = {
+    // eslint-disable-next-line indent
     label: '',
     done: false
 }
@@ -31,18 +32,18 @@ class App extends React.Component {
 
     render () {
         return (
-            <div>
-                <Title label='Todo App' />
+            <div class="main">
+                <Title label='Todo App'/>
                 {this.state.taskList.map((task, i) => (
-                    <Task
-                        taskName={task.label}
-                        done={task.done}
-                        key={`${task.label}_${i}`}
-                    />
+                  <Task
+                      taskName={task.label}
+                      done={task.done}
+                      key={`${task.label}_${i}`}
+                  />
                 ))}
-                <NewTask
+                  <NewTask
                     onClickSubmit={this.addItemTaskList}
-                />
+                  />
             </div>
         )
     }
@@ -53,8 +54,7 @@ export default App
 class Task extends React.Component {
     render () {
         return (
-            <div>
-                <div> - </div>
+            <div class="new_task">
                 <Checkbox />
                 <div>{this.props.taskName}</div>
             </div>
@@ -93,14 +93,33 @@ class NewTask extends React.Component {
     }
 }
 
-const Title = props => {
+class Checkbox extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      checked: "checked"
+    }
+  }
+
+  handleCheck() {
+    this.setState({
+      checked: " "
+    })
+  }
+
+  render() {
     return (
-        <div>{props.label}</div>
+      <input
+        type='checkbox'
+        defaultChecked={this.state.checked}
+        onChange={this.props.handleCheck}
+      />
     )
+  }
 }
 
-const Checkbox = props => {
+const Title = props => {
     return (
-        <input type='checkbox' checked='checked' />
+        <div class="title">{props.label}</div>
     )
 }
