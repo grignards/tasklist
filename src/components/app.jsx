@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      taskList: []
+      taskList: [],
     };
   }
 
@@ -29,13 +29,7 @@ class App extends React.Component {
     // const newTaskFullOld = Object.assign(defaultTask, newTask)
     newTaskList.push(newTaskFull);
     this.setState({
-      taskList: newTaskList
-    });
-  }
-
-  handleCheck = () => {
-    this.setState({
-      checked: false
+      taskList: newTaskList,
     });
   }
 

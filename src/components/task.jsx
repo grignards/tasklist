@@ -5,17 +5,17 @@ class Task extends React.Component {
   // constructor (props) {
   //   super(props);
   //   this.state = {
-  //     checked: false
+  //     checked: true
   //   };
   // }
 
   render () {
     return (
       <div className="new_task">
-        <Checkbox />
+        <Checkbox onChange={this.handleCheck} />
         <div>{this.props.taskName}</div>
       </div>
-    );
+    )
   }
 }
 
