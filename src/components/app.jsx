@@ -13,24 +13,27 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      taskList: [],
-    };
+      taskList: []
+    }
   }
 
   addItemTaskList = (newTaskLabel) => {
-    // this.setState(previousState => ({
-    //     taskList: [...previousState.taskList, newTask]
-    // }))
-    const newTaskList = this.state.taskList;
-    const newTaskFull = {
-      ...defaultTask,
-      label: newTaskLabel
-    };
-    // const newTaskFullOld = Object.assign(defaultTask, newTask)
-    newTaskList.push(newTaskFull);
-    this.setState({
-      taskList: newTaskList,
-    });
+    this.setState(previousState => ({
+      taskList: [
+        ...previousState.taskList,
+        { ...defaultTaskList, label: newTaskLabel }
+      ]
+    }))
+    // const newTaskList = this.state.taskList;
+    // const newTaskFull = {
+    //   ...defaultTask,
+    //   label: newTaskLabel
+    // }
+    // // const newTaskFullOld = Object.assign(defaultTask, newTask)
+    // newTaskList.push(newTaskFull);
+    // this.setState({
+    //   taskList: newTaskList,
+    // });
   }
 
   render () {

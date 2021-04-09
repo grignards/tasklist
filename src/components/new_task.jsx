@@ -5,7 +5,6 @@ class NewTask extends React.Component {
     super(props);
     this.state = {
       newTaskLabel: '',
-      checked: true
     };
   }
 
