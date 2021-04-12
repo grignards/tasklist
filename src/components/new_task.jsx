@@ -9,7 +9,6 @@ class NewTask extends React.Component {
   }
 
   handleChangeLabel = (e) => {
-    // e.target.value
     this.setState({
       newTaskLabel: e.target.value
     });

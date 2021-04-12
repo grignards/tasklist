@@ -43,7 +43,7 @@ class Checkbox extends React.Component {
   render() {
     return (
       <input
-        type='checkbox' defaultChecked={this.state.checked} onChange={this.handleChange}
+        type='checkbox' defaultChecked={this.state.checked} onChange={this.handleCheck_old}
       />
     )
   }

@@ -2,6 +2,8 @@ import React from 'react';
 import Title from './title';
 import Task from './task';
 import NewTask from './new_task';
+import Checkbox from './checkbox';
+
 
 const defaultTask = {
   // eslint-disable-next-line indent
@@ -21,7 +23,7 @@ class App extends React.Component {
     this.setState(previousState => ({
       taskList: [
         ...previousState.taskList,
-        { ...defaultTaskList, label: newTaskLabel }
+        { ...defaultTask, label: newTaskLabel }
       ]
     }))
     // const newTaskList = this.state.taskList;
@@ -36,16 +38,26 @@ class App extends React.Component {
     // });
   }
 
+  markAsDone = () => {
+    // if onChange, task.done
+  }
+
   render () {
     return (
-      <div className="main">
+      <div className='main'>
         <Title label='Todo App'/>
+
         {this.state.taskList.map((task, i) => (
-          <Task
-            taskName={task.label}
-            done={task.done}
-            key={`${task.label}_${i}`}
-          />
+          <div className="new_task">
+            <Checkbox
+              onChange={this.markAsDone}
+              done={task.done}
+            />
+            <Task
+              taskName={task.label}
+              key={`${task.label}_${i}`}
+            />
+          </div>
         ))}
         <NewTask
           onClickSubmit={this.addItemTaskList}
