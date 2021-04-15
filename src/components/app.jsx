@@ -39,6 +39,7 @@ class App extends React.Component {
   }
 
   markAsDone = () => {
+    this.setState()
     // if onChange, task.done
   }
 
@@ -51,11 +52,11 @@ class App extends React.Component {
           <div className="new_task">
             <Checkbox
               onChange={this.markAsDone}
-              done={task.done}
             />
             <Task
               taskName={task.label}
               key={`${task.label}_${i}`}
+              done={task.done}
             />
           </div>
         ))}

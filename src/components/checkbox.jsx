@@ -4,8 +4,10 @@ class Checkbox extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      checked: false
+      checked: false,
+      // done: false
     }
+    updateState = updateState.bind(this)
   }
 
   handleCheck_old = () => {
