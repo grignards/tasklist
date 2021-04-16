@@ -1,9 +1,16 @@
 import React from 'react';
 
-const Title = (props) => {
-  return (
-    <div className="title">{props.label}</div>
-  );
+class Title extends React.Component {
+  componentWillUnmount () {
+    console.log('Title will unmount')
+  }
+
+  render () {
+    const { props } = this
+    return (
+      <div className="title">{props.label}</div>
+    );
+  }
 }
 
 export default Title;

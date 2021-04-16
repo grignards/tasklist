@@ -15,8 +15,22 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      taskList: []
+      taskList: [],
+      bonjour: true
     }
+    console.log('component has finished constructor')
+  }
+
+  componentDidMount() {
+    console.log('component has finish its first render')
+  }
+
+  componentDidUpdate() {
+    console.log('component has finished update')
+  }
+
+  componentWillUnmount() {
+    console.log('component will unmount')
   }
 
   addItemTaskList = (newTaskLabel) => {
@@ -43,19 +57,25 @@ class App extends React.Component {
     // if onChange, task.done
   }
 
+  handleChangeBonjour = () => this.setState({
+    bonjour: false
+  })
+
   render () {
     return (
       <div className='main'>
         <Title label='Todo App'/>
 
         {this.state.taskList.map((task, i) => (
-          <div className="new_task">
+          <div
+            className="new_task"
+            key={`${task.label}_${i}`}
+          >
             <Checkbox
               onChange={this.markAsDone}
             />
             <Task
               taskName={task.label}
-              key={`${task.label}_${i}`}
               done={task.done}
             />
           </div>
@@ -63,6 +83,16 @@ class App extends React.Component {
         <NewTask
           onClickSubmit={this.addItemTaskList}
         />
+        <hr />
+        <hr />
+        <hr />
+        <button onClick={this.handleToggleBonjour}>Click me</button>
+        <br />
+        {(this.state.bonjour
+          ? <Title label='Todo App'/>
+          : <div>aurevoir</div>
+        )}
+
       </div>
     );
   }
