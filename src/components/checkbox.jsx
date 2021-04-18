@@ -5,49 +5,26 @@ class Checkbox extends React.Component {
   //   super(props)
   //   this.state = {
   //     checked: false,
-  //     // done: false
   //   }
-  //   updateState = updateState.bind(this)
+  //   // updateState = updateState.bind(this)
   // }
 
-  handleCheck_old = () => {
-    // this.setState((prevState) => {
-    //   return {
-    //     checked: !prevState.checked
-    //   }
-    // })
-    console.log(typeof defaultChecked)
-    this.props.selectFlat(this.props.index);
-  }
-
-  /*
-  alternative approche sans avoir à utiliser une fonction en parametre de setState
-  setCheck = () => {
-    this.setState({
-      checked: true
-    })
-  }
-
-  setUnCheck = () => {
-    this.setState({
-      checked: false
-    })
-  }
-
-  handleChange = () => {
-    if (this.state.checked){
-      // handle stuff
-      this.setCheck()
-    } else {
-      this.setUnCheck()
-    }
-  }
-  */
+  // handleCheck_old = () => {
+  //   this.setState((prevState) => {
+  //     return {
+  //       checked: !prevState.checked
+  //     }
+  //   })
+  //   // console.log(typeof defaultChecked)
+  //   // this.props.selectFlat(this.props.index);
+  // }
 
   render() {
+    const { props } = this
     return (
       <input
-        type='checkbox' defaultChecked={this.props.checked} onChange={this.handleCheck_old}
+        type='checkbox' // defaultChecked={this.state.checked} onChange={this.handleCheck_old}
+        onClick={e => this.props.onChangeToggle}
       />
     )
   }

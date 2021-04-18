@@ -8,7 +8,7 @@ import Checkbox from './checkbox';
 const defaultTask = {
   // eslint-disable-next-line indent
   label: '',
-  done: false,
+  done: false
 };
 
 class App extends React.Component {
@@ -16,22 +16,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       taskList: [],
-      bonjour: true
+      // bonjour: true
     }
-    console.log('component has finished constructor')
+    // console.log('component has finished constructor')
   }
 
-  componentDidMount() {
-    console.log('component has finish its first render')
-  }
-
-  componentDidUpdate() {
-    console.log('component has finished update')
-  }
-
-  componentWillUnmount() {
-    console.log('component will unmount')
-  }
 
   addItemTaskList = (newTaskLabel) => {
     this.setState(previousState => ({
@@ -39,23 +28,12 @@ class App extends React.Component {
         ...previousState.taskList,
         { ...defaultTask, label: newTaskLabel }
       ]
-    }))
-    // const newTaskList = this.state.taskList;
-    // const newTaskFull = {
-    //   ...defaultTask,
-    //   label: newTaskLabel
-    // }
-    // // const newTaskFullOld = Object.assign(defaultTask, newTask)
-    // newTaskList.push(newTaskFull);
-    // this.setState({
-    //   taskList: newTaskList,
-    // });
+    }));
   }
 
-  markAsDone = () => {
-    this.setState()
-    // if onChange, task.done
-  }
+  markAsDone = () => this.setState({
+    done: true
+  })
 
   handleChangeBonjour = () => this.setState({
     bonjour: false
@@ -65,37 +43,48 @@ class App extends React.Component {
     return (
       <div className='main'>
         <Title label='Todo App'/>
-
         {this.state.taskList.map((task, i) => (
           <div
             className="new_task"
             key={`${task.label}_${i}`}
           >
             <Checkbox
-              onChange={this.markAsDone}
+              onChangeToggle={this.markAsDone}
             />
             <Task
-              taskName={task.label}
               done={task.done}
+              taskName={task.label}
             />
           </div>
         ))}
         <NewTask
           onClickSubmit={this.addItemTaskList}
         />
-        <hr />
-        <hr />
-        <hr />
-        <button onClick={this.handleToggleBonjour}>Click me</button>
-        <br />
-        {(this.state.bonjour
-          ? <Title label='Todo App'/>
-          : <div>aurevoir</div>
-        )}
-
       </div>
     );
   }
 }
 
 export default App;
+
+// <hr />
+// <hr />
+// <hr />
+// <button onClick={this.handleToggleBonjour}>Click me</button>
+// <br />
+// {(this.state.bonjour
+//   ? <Title label='Todo App'/>
+//   : <div>aurevoir</div>
+// )}
+
+// componentDidMount() {
+//   console.log('component has finish its first render')
+// }
+
+// componentDidUpdate() {
+//   console.log('component has finished update')
+// }
+
+// componentWillUnmount() {
+//   console.log('component will unmount')
+// }
