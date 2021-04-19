@@ -6,7 +6,6 @@ import Checkbox from './checkbox';
 
 
 const defaultTask = {
-  // eslint-disable-next-line indent
   label: '',
   done: false
 };
@@ -31,9 +30,15 @@ class App extends React.Component {
     }));
   }
 
-  markAsDone = () => this.setState({
-    done: true
-  })
+  markAsDone = (checked) => {
+    this.setState(previousState => ({
+      taskList: [
+        ...previousState.taskList,
+        { ...checked, done: true }
+      ]
+      // sauf qu'on veut pas ajouter de nouvelle task, récupérer l'ancienne task et changer son label
+    }));
+  }
 
   handleChangeBonjour = () => this.setState({
     bonjour: false
@@ -49,11 +54,11 @@ class App extends React.Component {
             key={`${task.label}_${i}`}
           >
             <Checkbox
-              onChangeToggle={this.markAsDone}
+              onChange={this.markAsDone}
             />
             <Task
-              done={task.done}
               taskName={task.label}
+              done={this.done}
             />
           </div>
         ))}
