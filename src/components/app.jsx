@@ -30,13 +30,15 @@ class App extends React.Component {
     }));
   }
 
-  markAsDone = (checked) => {
+  markAsDone = (checkedTask) => {
     this.setState(previousState => ({
       taskList: [
         ...previousState.taskList,
-        { ...checked, done: true }
+        { checkedTask, done: true } // quelle syntaxe pour dire qu'on veut la task en question
+        // see : https://stackoverflow.com/questions/52860149/changing-state-based-on-parameter-in-reactjs
       ]
       // sauf qu'on veut pas ajouter de nouvelle task, récupérer l'ancienne task et changer son label
+      // this.state.done[checkedTask] = false;
     }));
   }
 
@@ -54,7 +56,7 @@ class App extends React.Component {
             key={`${task.label}_${i}`}
           >
             <Checkbox
-              onChange={this.markAsDone}
+              onChange={this.markAsDone(checkedTask)}
             />
             <Task
               taskName={task.label}
