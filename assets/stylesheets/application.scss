@@ -1,12 +1,28 @@
+html {
+  background-color: #003049;
+}
+
+
 #root {
   justify-content: center;
   display: flex;
+  background-color: #003049;
+  color: white;
+
+}
+
+button {
+  color: black;
+}
+
+input {
+  color: black;
 }
 
 .main {
   padding: 10px;
   margin: 50px;
-  border: solid black 1px;
+  border: solid white 1px;
 }
 
 .title {

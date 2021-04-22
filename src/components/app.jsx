@@ -10,6 +10,8 @@ const defaultTask = {
   done: false
 };
 
+const selectedTask = task(key);
+
 class App extends React.Component {
   constructor (props) {
     super(props);
@@ -20,7 +22,6 @@ class App extends React.Component {
     // console.log('component has finished constructor')
   }
 
-
   addItemTaskList = (newTaskLabel) => {
     this.setState(previousState => ({
       taskList: [
@@ -30,11 +31,11 @@ class App extends React.Component {
     }));
   }
 
-  markAsDone = (checkedTask) => {
+  markAsDone = (task) => {
     this.setState(previousState => ({
       taskList: [
         ...previousState.taskList,
-        { checkedTask, done: true } // quelle syntaxe pour dire qu'on veut la task en question
+        { task, done: true } // quelle syntaxe pour dire qu'on veut la task en question
         // see : https://stackoverflow.com/questions/52860149/changing-state-based-on-parameter-in-reactjs
       ]
       // sauf qu'on veut pas ajouter de nouvelle task, récupérer l'ancienne task et changer son label
@@ -42,9 +43,10 @@ class App extends React.Component {
     }));
   }
 
-  handleChangeBonjour = () => this.setState({
-    bonjour: false
-  })
+  // handleChangeBonjour = () => this.setState({
+  //   bonjour: false
+  // })
+
 
   render () {
     return (
@@ -56,7 +58,7 @@ class App extends React.Component {
             key={`${task.label}_${i}`}
           >
             <Checkbox
-              onChange={this.markAsDone(checkedTask)}
+              onChange={this.markAsDone}
             />
             <Task
               taskName={task.label}
