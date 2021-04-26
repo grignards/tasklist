@@ -4,13 +4,21 @@ import Task from './task';
 import NewTask from './new_task';
 import Checkbox from './checkbox';
 
+const autoIncrement = list => {
+  if (list.length === 0) {
+    return 0
+  }
+  const listWithOnlyId = list.map((task) => {
+    return task.id
+  })
+  return Math.max(...listWithOnlyId) + 1
+}
 
 const defaultTask = {
+  id: 0,
   label: '',
   done: false
 };
-
-const selectedTask = task(key);
 
 class App extends React.Component {
   constructor (props) {
@@ -23,24 +31,42 @@ class App extends React.Component {
   }
 
   addItemTaskList = (newTaskLabel) => {
+    // const newId =
     this.setState(previousState => ({
       taskList: [
         ...previousState.taskList,
-        { ...defaultTask, label: newTaskLabel }
+        {
+          ...defaultTask,
+          id: autoIncrement(previousState.taskList),
+          label: newTaskLabel
+        }
       ]
     }));
   }
 
-  markAsDone = (task) => {
-    this.setState(previousState => ({
-      taskList: [
-        ...previousState.taskList,
-        { task, done: true } // quelle syntaxe pour dire qu'on veut la task en question
-        // see : https://stackoverflow.com/questions/52860149/changing-state-based-on-parameter-in-reactjs
-      ]
-      // sauf qu'on veut pas ajouter de nouvelle task, récupérer l'ancienne task et changer son label
-      // this.state.done[checkedTask] = false;
-    }));
+  markAsDone = (taskId) => {
+    this.setState(previousState => {
+      // const elem = previousState.taskList.find((task) => {
+      //   return task.id === taskId
+      // })
+      // if (elem === undefined) return previousState
+      return {
+        taskList: previousState.taskList.map((task) => {
+          if (task.id === taskId) {
+            return {
+              ...task,
+              done: true
+            }
+          } else {
+            return task
+          }
+        })
+      }
+    });
+  }
+
+  test = (test) => {
+    console.log('test')
   }
 
   // handleChangeBonjour = () => this.setState({
@@ -58,11 +84,12 @@ class App extends React.Component {
             key={`${task.label}_${i}`}
           >
             <Checkbox
-              onChange={this.markAsDone}
+              checked={task.done}
+              onClick={e => this.markAsDone(task.id)}
             />
             <Task
               taskName={task.label}
-              done={this.done}
+              onClick={e => this.markAsDone(task.id)}
             />
           </div>
         ))}
@@ -76,9 +103,6 @@ class App extends React.Component {
 
 export default App;
 
-// <hr />
-// <hr />
-// <hr />
 // <button onClick={this.handleToggleBonjour}>Click me</button>
 // <br />
 // {(this.state.bonjour

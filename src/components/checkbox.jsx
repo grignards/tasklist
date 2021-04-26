@@ -1,30 +1,29 @@
 import React from 'react';
 
 class Checkbox extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      checked: false,
-    }
-    // updateState = updateState.bind(this)
-  }
+  // constructor (props) {
+  //   super(props)
+  //   this.state = {
+  //     done: false,
+  //   }
+  //   updateState = updateState.bind(this)
+  // }
 
-  handleCheck_old = () => {
-    this.setState((prevState) => {
-      return {
-        checked: !prevState.checked
-      }
-    })
-  }
+  // handleCheck_old = () => {
+  //   this.setState((prevState) => {
+  //     return {
+  //       done: !prevState.done
+  //     }
+  //   })
+  // }
 
   render() {
-    const { props } = this
     return (
       <input
         type='checkbox'
-        defaultChecked={this.state.checked}
-        onChange={this.handleCheck_old}
-        // onClick={e => this.props.onChangeToggle}
+        checked={this.props.checked}
+        // onChange={this.handleCheck_old}
+        onClick={this.props.onClick}
       />
     )
   }
