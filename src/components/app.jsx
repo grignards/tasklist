@@ -25,9 +25,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       taskList: [],
-      // bonjour: true
     }
-    // console.log('component has finished constructor')
   }
 
   addItemTaskList = (newTaskLabel) => {
@@ -45,7 +43,7 @@ class App extends React.Component {
   }
 
   markAsDone = (taskId) => {
-    this.setState(previousState => {
+    this.setState((previousState) => {
       // const elem = previousState.taskList.find((task) => {
       //   return task.id === taskId
       // })
@@ -55,24 +53,15 @@ class App extends React.Component {
           if (task.id === taskId) {
             return {
               ...task,
-              done: true
+              done: !task.done
             }
           } else {
-            return task
+            return task;
           }
         })
       }
     });
   }
-
-  test = (test) => {
-    console.log('test')
-  }
-
-  // handleChangeBonjour = () => this.setState({
-  //   bonjour: false
-  // })
-
 
   render () {
     return (
@@ -88,6 +77,7 @@ class App extends React.Component {
               onClick={e => this.markAsDone(task.id)}
             />
             <Task
+              done={task.done}
               taskName={task.label}
               onClick={e => this.markAsDone(task.id)}
             />
