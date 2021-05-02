@@ -28,7 +28,7 @@ class App extends React.Component {
     }
   }
 
-  addItemTaskList = (newTaskLabel) => {
+  addItemTaskList = newTaskLabel => {
     // const newId =
     this.setState(previousState => ({
       taskList: [
@@ -42,8 +42,8 @@ class App extends React.Component {
     }));
   }
 
-  markAsDone = (taskId) => {
-    this.setState((previousState) => {
+  markAsDone = taskId => {
+    this.setState(previousState => {
       // const elem = previousState.taskList.find((task) => {
       //   return task.id === taskId
       // })
@@ -56,7 +56,7 @@ class App extends React.Component {
               done: !task.done
             }
           } else {
-            return task;
+            return task
           }
         })
       }
