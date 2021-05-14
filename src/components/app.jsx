@@ -3,6 +3,7 @@ import Title from './title';
 import Task from './task';
 import NewTask from './new_task';
 import Checkbox from './checkbox';
+import Delete from './delete';
 
 const autoIncrement = list => {
   if (list.length === 0) {
@@ -63,6 +64,47 @@ class App extends React.Component {
     });
   }
 
+  // return new array
+
+  markAsDone = taskId => {
+    this.setState(previousState => {
+      // const elem = previousState.taskList.find((task) => {
+      //   return task.id === taskId
+      // })
+      // if (elem === undefined) return previousState
+      return {
+        taskList: previousState.taskList.map((task) => {
+          if (task.id === taskId) {
+            return {
+              ...task,
+              deleted: !task.deleted
+            }
+          } else {
+            return task
+          }
+        })
+      }
+    });
+  }
+
+  // adapter celle ci avec l'id
+
+    addItemTaskList = newTaskLabel => {
+    // const newId =
+    this.setState(previousState => ({
+      taskList: [
+        ...previousState.taskList,
+        {
+          ...defaultTask,
+          id: autoIncrement(previousState.taskList),
+          label: newTaskLabel
+        }
+      ]
+    }));
+  }
+
+
+
   render () {
     return (
       <div className='main'>
@@ -80,6 +122,10 @@ class App extends React.Component {
               done={task.done}
               taskName={task.label}
               onClick={e => this.markAsDone(task.id)}
+            />
+            <Delete
+              deleted={task.deleted}
+              onClick={e => this.markAsDeleted(task.id)}
             />
           </div>
         ))}
