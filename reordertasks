@@ -1,0 +1,50 @@
+reorder tasks
+btn flèche haut / flèche bas
+apparaissent en mousehover de la task
+
+pouvoir identifier dans quel ordre sont les tâches
+déterminer l'ordre des tâches selon leur position dans la liste des tâches (qui est un state de App.jsx)
+
+pour modifier l'ordre d'une tâche pour la remonter,
+
+
+### possible approches de stockage de l'ordre
+#### A1) approche par property order dans l'objet task
+
+#### A2) se baser sur l'ordre des éléments dans state.tasklist
+
+#### A3) stocker les l'ordre des éléments dans un state.taskOrderList
+  - une liste d'entier qui représente les id des task
+  - intéret : on manipule une liste d'entier au lieu d'une liste d'objet
+
+
+
+### quoi faire de notre stockage de l'ordre
+
+#### réorganiser tâche par tâche
+##### plus haut
+- bouton fleche haut
+- handleSortUp
+##### plus bas
+- bouton fleche bas
+- handleSortDown
+
+#### afficher les tâches dans l'ordre
+- A1: on va sort() la taskList selon la property order
+  - // .sort((taskA, taskB) => taskA.order - taskB.order)
+- A2: rien de particulier à faire, liste déjà triée
+- A3: regénérer un array à partir de l'array trié contenant les info de l'array pas trié
+  - /*
+    const sortedTaskList = this.state.taskOrderList.map(id =>
+      this.state.taskList.find(task => task.id === id)
+    )
+  */
+
+
+
+taskOrderList // [3, 1, 2]
+taskList // [{ order: 1, ... }, { order: 2, ... }, { order: 3, ... }]
+
+sortedTaskList // [{ id: 3, ... }, { id: 1, ... }, { id: 2, ... }]
+
+##Permutation

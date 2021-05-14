@@ -18,6 +18,7 @@ const autoIncrement = list => {
 const defaultTask = {
   id: 0,
   label: '',
+  order: 1,
   done: false
 };
 
@@ -66,12 +67,8 @@ class App extends React.Component {
 
   // return new array
 
-  markAsDone = taskId => {
+  markAsDeleted = taskId => {
     this.setState(previousState => {
-      // const elem = previousState.taskList.find((task) => {
-      //   return task.id === taskId
-      // })
-      // if (elem === undefined) return previousState
       return {
         taskList: previousState.taskList.map((task) => {
           if (task.id === taskId) {
@@ -89,13 +86,12 @@ class App extends React.Component {
 
   // adapter celle ci avec l'id
 
-    addItemTaskList = newTaskLabel => {
-    // const newId =
+  markAsDeleted = taskId => {
     this.setState(previousState => ({
       taskList: [
         ...previousState.taskList,
         {
-          ...defaultTask,
+          ...taskId,
           id: autoIncrement(previousState.taskList),
           label: newTaskLabel
         }
@@ -103,15 +99,47 @@ class App extends React.Component {
     }));
   }
 
+  markAsDeleted = taskId => {
+    this.setState(previousState => ({
+      taskList: previousState.taskList.filter(task => task.id !== taskId)
+    }));
+  };
 
+  handleSortUpA1 = (taskId) => {
+    // permuter taskId avec son prédécesseur
+    // A1: on change uniquement la property "order" des elements de taskslit
+  }
+
+  handleSortDownA1 = (taskId) => {
+
+  }
+
+  handleSortUpA2 = (taskId) => {
+    // A2: on change l'ordre des lements dans tasklist
+  }
+
+  handleSortDownA2 = (taskId) => {
+
+  }
+
+  handleSortUpA3 = (taskId) => {
+    // A3: on change l'ordre dans elements dans taskOrderList
+  }
+
+  handleSortDownA3 = (taskId) => {
+
+  }
 
   render () {
+    const sortedTaskList = this.state.taskOrderList.map(id =>
+      this.state.taskList.find(task => task.id === id)
+    )
     return (
       <div className='main'>
-        <Title label='Todo App'/>
+        <Title label='Todooo App'/>
         {this.state.taskList.map((task, i) => (
           <div
-            className="new_task"
+            className="task"
             key={`${task.label}_${i}`}
           >
             <Checkbox
@@ -124,7 +152,6 @@ class App extends React.Component {
               onClick={e => this.markAsDone(task.id)}
             />
             <Delete
-              deleted={task.deleted}
               onClick={e => this.markAsDeleted(task.id)}
             />
           </div>
