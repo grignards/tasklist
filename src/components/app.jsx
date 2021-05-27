@@ -130,6 +130,14 @@ class App extends React.Component {
 
   }
 
+  // taskList.prototype.swap = function (x,y) {
+  //   var b = this[x];
+  //   this[x] = this[y];
+  //   this[y] = b;
+  //   return this;
+  // }
+  // list.swap( x, y )
+
   render () {
     const sortedTaskList = this.state.taskOrderList.map(id =>
       this.state.taskList.find(task => task.id === id)
