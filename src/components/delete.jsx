@@ -9,7 +9,7 @@ class Delete extends React.Component {
         className="delete"
         onClick={this.props.onClick}
       >
-      x
+      ❌
       </button>
     );
   }

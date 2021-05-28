@@ -18,7 +18,7 @@ class Task extends React.Component {
 
   render () {
     return (
-      <div onClick={this.props.onClick}>
+      <div className="column" onClick={this.props.onClick} onDrag={this.props.onDrag}>
         {this.props.taskName}
       </div>
     )
