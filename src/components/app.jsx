@@ -4,6 +4,8 @@ import Task from './task';
 import NewTask from './new_task';
 import Checkbox from './checkbox';
 import Delete from './delete';
+import ReorderUp from './reorder_up.jsx';
+import ReorderDown from './reorder_down.jsx';
 
 const autoIncrement = list => {
   if (list.length === 0) {
@@ -118,9 +120,40 @@ class App extends React.Component {
 
   // }
 
-  // handleSortUpA2 = (taskId) => {
-  //   // A2: on change l'ordre des lements dans tasklist
-  // }
+  handleSortUpA2 = (taskId) => {
+    // A2: on change l'ordre des lements dans tasklist
+    const { state } = this
+
+    let newState = [...state.taskList] // crée un nouvel array par copie
+
+    // taslId = 3
+    // init: [{id: 2}, {id: 1}, {id: 3}, {id: 4}]
+    const taskIdIndex = state.taskList.map(task => task.id).indexOf(taskId) // [2, 1, 3, 4].indexOf(taskId) // retourne l'index
+
+    const tempPermut = state.taskList[taskIdIndex + 1] // t0 // on copie {id: 4}
+    newState[taskIdIndex + 1] = state.taskList[taskIdIndex] // t1 // [{id: 2}, {id: 1}, {id: 3}, {id: 3}]
+    newState[taskIdIndex] = tempPermut // t2 // [{id: 2}, {id: 1}, {id: 4}, {id: 3}]
+
+    this.setState({ taskList: newState })
+  }
+
+
+  handleSortDownA2 = (taskId) => {
+    // A2: on change l'ordre des lements dans tasklist
+    const { state } = this
+
+    let newState = [...state.taskList] // crée un nouvel array par copie
+
+    // taslId = 3
+    // init: [{id: 2}, {id: 1}, {id: 3}, {id: 4}]
+    const taskIdIndex = state.taskList.map(task => task.id).indexOf(taskId) // [2, 1, 3, 4].indexOf(taskId) // retourne l'index
+
+    const tempPermut = state.taskList[taskIdIndex - 1] // t0 // on copie {id: 4}
+    newState[taskIdIndex - 1] = state.taskList[taskIdIndex] // t1 // [{id: 2}, {id: 1}, {id: 3}, {id: 3}]
+    newState[taskIdIndex] = tempPermut // t2 // [{id: 2}, {id: 1}, {id: 4}, {id: 3}]
+
+    this.setState({ taskList: newState })
+  }
 
   // handleSortDownA2 = (taskId) => {
 
@@ -211,12 +244,12 @@ class App extends React.Component {
   }
 
   addDnDHandlers(taskId) {
-    taskId.addEventListener('dragstart', handleDragStart, false);
-    taskId.addEventListener('dragenter', handleDragEnter, false)
-    taskId.addEventListener('dragover', handleDragOver, false);
-    taskId.addEventListener('dragleave', handleDragLeave, false);
-    taskId.addEventListener('drop', handleDrop, false);
-    taskId.addEventListener('dragend', handleDragEnd, false);
+    // taskId.addEventListener('dragstart', handleDragStart, false);
+    // taskId.addEventListener('dragenter', handleDragEnter, false)
+    // taskId.addEventListener('dragover', handleDragOver, false);
+    // taskId.addEventListener('dragleave', handleDragLeave, false);
+    // taskId.addEventListener('drop', handleDrop, false);
+    // taskId.addEventListener('dragend', handleDragEnd, false);
   }
 
 
@@ -247,9 +280,16 @@ class App extends React.Component {
               done={task.done}
               taskName={task.label}
               onClick={e => this.markAsDone(task.id)}
-              onDrag={e => this.taskDnD(task.id)}
+              // onDrag={e => this.taskDnD(task.id)}
+            />
+            <ReorderUp
+              onClick={e => this.handleSortUpA2(task.id)}
+            />
+            <ReorderDown
+              onClick={e => this.handleSortDownA2(task.id)}
             />
             <Delete
+              // onClick={e => this.markAsDeleted(task.id)}
               onClick={e => this.markAsDeleted(task.id)}
             />
           </div>
