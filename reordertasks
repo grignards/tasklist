@@ -13,7 +13,7 @@ pour modifier l'ordre d'une tâche pour la remonter,
 
 #### A2) se baser sur l'ordre des éléments dans state.tasklist
 
-#### A3) stocker les l'ordre des éléments dans un state.taskOrderList
+#### A3) stocker l'ordre des éléments dans un state.taskOrderList
   - une liste d'entier qui représente les id des task
   - intéret : on manipule une liste d'entier au lieu d'une liste d'objet
 

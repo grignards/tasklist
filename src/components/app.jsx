@@ -33,21 +33,28 @@ class App extends React.Component {
     super(props);
     this.state = {
       taskList: [],
+      taskOrderList: []
     }
   }
 
   addItemTaskList = newTaskLabel => {
-    // const newId =
-    this.setState(previousState => ({
-      taskList: [
-        ...previousState.taskList,
-        {
-          ...defaultTask,
-          id: autoIncrement(previousState.taskList),
-          label: newTaskLabel
-        }
-      ]
-    }));
+    this.setState(previousState => {
+      const newId = autoIncrement(previousState.taskList)
+      return {
+        taskList: [
+          ...previousState.taskList,
+          {
+            ...defaultTask,
+            id: newId,
+            label: newTaskLabel
+          }
+        ],
+        taskOrderList: [
+          ...previousState.taskOrderList,
+          newId
+        ]
+      }
+    });
   }
 
   markAsDone = taskId => {
@@ -73,43 +80,30 @@ class App extends React.Component {
 
   // return new array
 
-  markAsDeleted = taskId => {
-    this.setState(previousState => {
-      return {
-        taskList: previousState.taskList.map((task) => {
-          if (task.id === taskId) {
-            return {
-              ...task,
-              deleted: !task.deleted
-            }
-          } else {
-            return task
-          }
-        })
-      }
-    });
-  }
-
-  // adapter celle ci avec l'id
+  // markAsDeleted = taskId => {
+  //   this.setState(previousState => {
+  //     return {
+  //       taskList: previousState.taskList.map((task) => {
+  //         if (task.id === taskId) {
+  //           return {
+  //             ...task,
+  //             deleted: !task.deleted
+  //           }
+  //         } else {
+  //           return task
+  //         }
+  //       })
+  //     }
+  //   });
+  // }
 
   markAsDeleted = taskId => {
     this.setState(previousState => ({
-      taskList: [
-        ...previousState.taskList,
-        {
-          ...taskId,
-          id: autoIncrement(previousState.taskList),
-          label: newTaskLabel
-        }
-      ]
-    }));
-  }
-
-  markAsDeleted = taskId => {
-    this.setState(previousState => ({
-      taskList: previousState.taskList.filter(task => task.id !== taskId)
+      taskList: previousState.taskList.filter(task => task.id !== taskId),
+      taskOrderList: previousState.taskOrderList.filter(taskOrderId => taskOrderId !== taskId )
     }));
   };
+
 
   // handleSortUpA1 = (taskId) => {
   //   // permuter taskId avec son prédécesseur
@@ -120,68 +114,64 @@ class App extends React.Component {
 
   // }
 
-  handleSortUpA2 = (taskId) => {
-    // A2: on change l'ordre des lements dans tasklist
-    const { state } = this
+  // handleSortUpA2 = (taskId) => {
+  //   // A2: on change l'ordre des lements dans tasklist
+  //   const { state } = this
 
-    let newState = [...state.taskList] // crée un nouvel array par copie
+  //   let newState = [...state.taskList] // crée un nouvel array par copie
 
-    // taslId = 3
-    // init: [{id: 2}, {id: 1}, {id: 3}, {id: 4}]
-    const taskIdIndex = state.taskList.map(task => task.id).indexOf(taskId) // [2, 1, 3, 4].indexOf(taskId) // retourne l'index
+  //   // taslId = 3
+  //   // init: [{id: 2}, {id: 1}, {id: 3}, {id: 4}]
+  //   const taskIdIndex = state.taskList.map(task => task.id).indexOf(taskId) // [2, 1, 3, 4].indexOf(taskId) // retourne l'index
 
-    const tempPermut = state.taskList[taskIdIndex + 1] // t0 // on copie {id: 4}
-    newState[taskIdIndex + 1] = state.taskList[taskIdIndex] // t1 // [{id: 2}, {id: 1}, {id: 3}, {id: 3}]
-    newState[taskIdIndex] = tempPermut // t2 // [{id: 2}, {id: 1}, {id: 4}, {id: 3}]
+  //   const tempPermut = state.taskList[taskIdIndex + 1] // t0 // on copie {id: 4}
+  //   newState[taskIdIndex + 1] = state.taskList[taskIdIndex] // t1 // [{id: 2}, {id: 1}, {id: 3}, {id: 3}]
+  //   newState[taskIdIndex] = tempPermut // t2 // [{id: 2}, {id: 1}, {id: 4}, {id: 3}]
 
-    this.setState({ taskList: newState })
-  }
+  //   this.setState({ taskList: newState })
+  // }
 
 
-  handleSortDownA2 = (taskId) => {
-    // A2: on change l'ordre des lements dans tasklist
-    const { state } = this
+  // handleSortDownA2 = (taskId) => {
+  //   // A2: on change l'ordre des lements dans tasklist
+  //   const { state } = this
 
-    let newState = [...state.taskList] // crée un nouvel array par copie
+  //   let newState = [...state.taskList] // crée un nouvel array par copie
 
-    // taslId = 3
-    // init: [{id: 2}, {id: 1}, {id: 3}, {id: 4}]
-    const taskIdIndex = state.taskList.map(task => task.id).indexOf(taskId) // [2, 1, 3, 4].indexOf(taskId) // retourne l'index
+  //   // taslId = 3
+  //   // init: [{id: 2}, {id: 1}, {id: 3}, {id: 4}]
+  //   const taskIdIndex = state.taskList.map(task => task.id).indexOf(taskId) // [2, 1, 3, 4].indexOf(taskId) // retourne l'index
 
-    const tempPermut = state.taskList[taskIdIndex - 1] // t0 // on copie {id: 4}
-    newState[taskIdIndex - 1] = state.taskList[taskIdIndex] // t1 // [{id: 2}, {id: 1}, {id: 3}, {id: 3}]
-    newState[taskIdIndex] = tempPermut // t2 // [{id: 2}, {id: 1}, {id: 4}, {id: 3}]
+  //   const tempPermut = state.taskList[taskIdIndex - 1] // t0 // on copie {id: 4}
+  //   newState[taskIdIndex - 1] = state.taskList[taskIdIndex] // t1 // [{id: 2}, {id: 1}, {id: 3}, {id: 3}]
+  //   newState[taskIdIndex] = tempPermut // t2 // [{id: 2}, {id: 1}, {id: 4}, {id: 3}]
 
-    this.setState({ taskList: newState })
-  }
+  //   this.setState({ taskList: newState })
+  // }
 
   // handleSortDownA2 = (taskId) => {
 
   // }
 
-  // handleSortUpA3 = (taskId) => {
-  //   // A3: on change l'ordre dans elements dans taskOrderList
-  // }
+  handleSortUpA3 = (taskId) => {
+    // A3: on change l'ordre dans elements dans taskOrderList
+    const { state } = this
+
+    let newState = [...state.taskOrderList] // crée un nouvel array par copie
+    const taskIndex = state.taskOrderList.indexOf(taskId)
+    const tempPermut = state.taskOrderList[taskIndex -1]
+
+    newState[taskIndex - 1] = taskId
+    newState[taskIndex] = tempPermut
+
+    this.setState({ taskOrderList: newState })
+
+  }
 
   // handleSortDownA3 = (taskId) => {
 
   // }
 
-  // taskList.prototype.swap = function (x,y) {
-  //   var b = this[x];
-  //   this[x] = this[y];
-  //   this[y] = b;
-  //   return this;
-  // }
-  // list.swap( x, y )
-
-
-
-  markAsDeleted = taskId => {
-    this.setState(previousState => ({
-      taskList: previousState.taskList.filter(task => task.id !== taskId)
-    }));
-  };
 
   handleDragStart = taskId => {
     dragSrcEl = this;
@@ -267,33 +257,36 @@ class App extends React.Component {
     return (
       <div className='main' id="colums">
         <Title label='Todooo App'/>
-        {this.state.taskList.map((task, i) => (
-          <div
-            className="task"
-            key={`${task.label}_${i}`}
-          >
-            <Checkbox
-              checked={task.done}
-              onClick={e => this.markAsDone(task.id)}
-            />
-            <Task
-              done={task.done}
-              taskName={task.label}
-              onClick={e => this.markAsDone(task.id)}
-              // onDrag={e => this.taskDnD(task.id)}
-            />
-            <ReorderUp
-              onClick={e => this.handleSortUpA2(task.id)}
-            />
-            <ReorderDown
-              onClick={e => this.handleSortDownA2(task.id)}
-            />
-            <Delete
-              // onClick={e => this.markAsDeleted(task.id)}
-              onClick={e => this.markAsDeleted(task.id)}
-            />
-          </div>
-        ))}
+        {this.state.taskOrderList.map((taskId, i) => {
+          const task =  this.state.taskList.find(task => taskId === task.id)
+          return (
+            <div
+              className="task"
+              key={`${task.label}_${i}`}
+            >
+              <Checkbox
+                checked={task.done}
+                onClick={e => this.markAsDone(task.id)}
+              />
+              <Task
+                done={task.done}
+                taskName={task.label}
+                onClick={e => this.markAsDone(task.id)}
+                // onDrag={e => this.taskDnD(task.id)}
+              />
+              <ReorderUp
+                onClick={e => this.handleSortUpA3(task.id)}
+              />
+              {/* <ReorderDown
+                onClick={e => this.handleSortDownA2(task.id)}
+              /> */}
+              <Delete
+                onClick={e => this.markAsDeleted(task.id)}
+              />
+            </div>
+          )
+        })}
+
         <NewTask
           onClickSubmit={this.addItemTaskList}
         />
