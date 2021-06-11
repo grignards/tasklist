@@ -40,16 +40,16 @@ pour modifier l'ordre d'une tâche pour la remonter,
     )
   */
 
-
-TODO :
-# pouvoir cliquer sur le submit avec "entrée"
-# cleaner le code
-# gérer quand on veut up la tâche du haut
-
+##Permutation
 
 taskOrderList // [3, 1, 2]
 taskList // [{ order: 1, ... }, { order: 2, ... }, { order: 3, ... }]
 
 sortedTaskList // [{ id: 3, ... }, { id: 1, ... }, { id: 2, ... }]
 
-##Permutation
+
+# TODO :
+## pouvoir cliquer sur le submit avec "entrée"
+## mettre les bonnes flèches up et down
+## cleaner le code
+## gérer quand on veut up la tâche du haut
