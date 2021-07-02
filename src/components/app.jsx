@@ -26,7 +26,6 @@ const defaultTask = {
 
 const dragSrcEl = null;
 
-// var cols = document.querySelectorAll('#columns .column');
 
 class App extends React.Component {
   constructor (props) {
@@ -77,25 +76,6 @@ class App extends React.Component {
       }
     });
   }
-
-  // return new array
-
-  // markAsDeleted = taskId => {
-  //   this.setState(previousState => {
-  //     return {
-  //       taskList: previousState.taskList.map((task) => {
-  //         if (task.id === taskId) {
-  //           return {
-  //             ...task,
-  //             deleted: !task.deleted
-  //           }
-  //         } else {
-  //           return task
-  //         }
-  //       })
-  //     }
-  //   });
-  // }
 
   markAsDeleted = taskId => {
     this.setState(previousState => ({
@@ -168,92 +148,21 @@ class App extends React.Component {
 
   }
 
-  // handleSortDownA3 = (taskId) => {
+  handleSortDownA3 = (taskId) => {
+    // A3: on change l'ordre dans elements dans taskOrderList
+    const { state } = this
 
-  // }
+    let newState = [...state.taskOrderList] // crée un nouvel array par copie
+    const taskIndex = state.taskOrderList.indexOf(taskId)
+    const tempPermut = state.taskOrderList[taskIndex +1]
 
+    newState[taskIndex + 1] = taskId
+    newState[taskIndex] = tempPermut
 
-  handleDragStart = taskId => {
-    dragSrcEl = this;
-
-    taskId.dataTransfer.effectAllowed = 'move';
-    taskId.dataTransfer.setData('text/html', this.outerHTML);
-
-    this.taskId.add('dragElem');
-    console.log("start");
+    this.setState({ taskOrderList: newState })
   }
-
-  handleDragOver(e) {
-    if (e.preventDefault) {
-      e.preventDefault();
-    }
-    this.taskId.add('over');
-
-    e.dataTransfer.dropEffect = 'move';
-    console.log("drag over");
-
-    return false;
-  }
-
-  // handleDragEnter(taskId) {
-  //   // this / e.target is the current hover target.
-  //   console.log("enter");
-  // }
-
-  handleDragLeave(taskId) {
-    this.taskId.remove('over');
-    console.log("leave");
-  }
-
-  handleDrop(e) {
-
-    if (e.stopPropagation) {
-      e.stopPropagation();
-    }
-    if (dragSrcEl != this) {
-      this.parentNode.removeChild(dragSrcEl);
-      var dropHTML = e.dataTransfer.getData('text/html');
-      this.insertAdjacentHTML('beforebegin',dropHTML);
-      var dropElem = this.previousSibling;
-      addDnDHandlers(dropElem);
-      console.log("drop");
-
-
-    }
-    this.taskId.remove('over');
-    console.log("over");
-    return false;
-  }
-
-  handleDragEnd(taskId) {
-    this.taskId.remove('over');
-
-    /*[].forEach.call(cols, function (col) {
-      col.classList.remove('over');
-    });*/
-  }
-
-  addDnDHandlers(taskId) {
-    // taskId.addEventListener('dragstart', handleDragStart, false);
-    // taskId.addEventListener('dragenter', handleDragEnter, false)
-    // taskId.addEventListener('dragover', handleDragOver, false);
-    // taskId.addEventListener('dragleave', handleDragLeave, false);
-    // taskId.addEventListener('drop', handleDrop, false);
-    // taskId.addEventListener('dragend', handleDragEnd, false);
-  }
-
-
-    taskDnD = taskId => {
-      this.setState(previousState => ({
-        taskList: previousState.taskList.forEach.call(addDnDHandlers(taskId))
-      }));
-    };
-
 
   render () {
-    // const sortedTaskList = this.state.taskOrderList.map(id =>
-    //   this.state.taskList.find(task => task.id === id)
-    // )
     return (
       <div className='main' id="colums">
         <Title label='Todooo App'/>
@@ -272,14 +181,13 @@ class App extends React.Component {
                 done={task.done}
                 taskName={task.label}
                 onClick={e => this.markAsDone(task.id)}
-                // onDrag={e => this.taskDnD(task.id)}
               />
               <ReorderUp
                 onClick={e => this.handleSortUpA3(task.id)}
               />
-              {/* <ReorderDown
-                onClick={e => this.handleSortDownA2(task.id)}
-              /> */}
+              <ReorderDown
+                onClick={e => this.handleSortDownA3(task.id)}
+              />
               <Delete
                 onClick={e => this.markAsDeleted(task.id)}
               />
@@ -296,22 +204,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// <button onClick={this.handleToggleBonjour}>Click me</button>
-// <br />
-// {(this.state.bonjour
-//   ? <Title label='Todo App'/>
-//   : <div>aurevoir</div>
-// )}
-
-// componentDidMount() {
-//   console.log('component has finish its first render')
-// }
-
-// componentDidUpdate() {
-//   console.log('component has finished update')
-// }
-
-// componentWillUnmount() {
-//   console.log('component will unmount')
-// }
