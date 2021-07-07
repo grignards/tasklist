@@ -129,31 +129,32 @@ class App extends React.Component {
   //   this.setState({ taskList: newState })
   // }
 
-  // handleSortDownA2 = (taskId) => {
-
-  // }
-
   handleSortUpA3 = (taskId) => {
     // A3: on change l'ordre dans elements dans taskOrderList
     const { state } = this
 
-    let newState = [...state.taskOrderList] // crée un nouvel array par copie
     const taskIndex = state.taskOrderList.indexOf(taskId)
+
+    if (taskIndex <= 0) return
+
+    let newState = [...state.taskOrderList] // crée un nouvel array par copie
     const tempPermut = state.taskOrderList[taskIndex -1]
 
     newState[taskIndex - 1] = taskId
     newState[taskIndex] = tempPermut
 
     this.setState({ taskOrderList: newState })
-
   }
 
   handleSortDownA3 = (taskId) => {
     // A3: on change l'ordre dans elements dans taskOrderList
     const { state } = this
 
-    let newState = [...state.taskOrderList] // crée un nouvel array par copie
     const taskIndex = state.taskOrderList.indexOf(taskId)
+
+    if (taskIndex === (state.taskOrderList.length - 1)) return
+
+    let newState = [...state.taskOrderList] // crée un nouvel array par copie
     const tempPermut = state.taskOrderList[taskIndex +1]
 
     newState[taskIndex + 1] = taskId
@@ -163,11 +164,12 @@ class App extends React.Component {
   }
 
   render () {
+    const { state } = this
     return (
       <div className='main' id="colums">
         <Title label='Todooo App'/>
-        {this.state.taskOrderList.map((taskId, i) => {
-          const task =  this.state.taskList.find(task => taskId === task.id)
+        {state.taskOrderList.map((taskId, i) => {
+          const task = state.taskList.find(task => taskId === task.id)
           return (
             <div
               className="task"
@@ -184,9 +186,11 @@ class App extends React.Component {
               />
               <ReorderUp
                 onClick={e => this.handleSortUpA3(task.id)}
+                disabled={i <= 0}
               />
               <ReorderDown
                 onClick={e => this.handleSortDownA3(task.id)}
+                disabled={i === state.taskOrderList.length - 1}
               />
               <Delete
                 onClick={e => this.markAsDeleted(task.id)}

@@ -8,8 +8,9 @@ class ReorderDown extends React.Component {
       <button
         className="reorder_down"
         onClick={this.props.onClick}
+        disabled={props.disabled}
       >
-      ⬆️
+      ⬇️
       </button>
     );
   }

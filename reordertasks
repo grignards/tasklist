@@ -7,7 +7,6 @@ déterminer l'ordre des tâches selon leur position dans la liste des tâches (q
 
 pour modifier l'ordre d'une tâche pour la remonter,
 
-
 ### possible approches de stockage de l'ordre
 #### A1) approche par property order dans l'objet task
 
